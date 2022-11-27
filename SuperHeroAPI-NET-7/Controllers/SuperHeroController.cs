@@ -8,10 +8,8 @@ namespace SuperHeroAPI_NET_7.Controllers
     [ApiController]
     public class SuperHeroController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<List<SuperHero>>> GetAllHeroes()
-        {
-            var superHeroes = new List<SuperHero>
+
+        private static List<SuperHero> superHeroes = new List<SuperHero>
             {
                 new SuperHero
                 {
@@ -20,9 +18,30 @@ namespace SuperHeroAPI_NET_7.Controllers
                     FirstName = "Peter",
                     LastName = "Parker",
                     Place = "New York City"
+                },
+                new SuperHero
+                {
+                    Id = 2,
+                    Name = "Iron Man",
+                    FirstName = "Tony",
+                    LastName = "Stark",
+                    Place = "Malibu"
                 }
             };
+        [HttpGet]
+        public async Task<ActionResult<List<SuperHero>>> GetAllHeroes()
+        {
+       
             return Ok(superHeroes);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> GetSingleHero(int id)
+        {
+            var hero = superHeroes.Find(x=>x.Id == id);  
+            if(hero is null) 
+                return NotFound("Sorry , doesn't exist.");
+            return Ok(hero);
         }
     }
 }
