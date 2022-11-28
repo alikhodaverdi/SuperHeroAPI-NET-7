@@ -1,3 +1,5 @@
+global using SuperHeroAPI_NET_7.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
